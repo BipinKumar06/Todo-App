@@ -53,8 +53,13 @@ button{
     justify-content: center;
     align-items: center;
 }
+#change{
+    pointer-events: none;
+}
 .active{
     pointer-events: auto;
+}
+button.active{
     background-color: orange;
 }
 .plus{
@@ -81,7 +86,6 @@ button{
    width:350px; 
    overflow-x: auto;
 }
-
 
 .heading{
     /* position: fixed; */
