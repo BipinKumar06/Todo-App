@@ -1,8 +1,11 @@
 text=document.querySelector("#text")
 plus=document.querySelector(".plus")
 todolist=document.querySelector(".addedtask")
+heading=document.querySelector(".heading")
 showtask();
+f=1;
 window.onload=()=>{
+    showtask()
 text.focus()
 }
 text.onkeyup=()=>{
@@ -40,7 +43,7 @@ function showtask(){
     }
     let newtag='';
     listarr.forEach((element,index) => {
-        newtag+=`<div class="adt"><div class="task">${element}</div><div><button class="btn" onclick="del(${index})">delete</button></div></div>`;
+        newtag+=`<div class="adt"><div class="task"><input type="text" name="" id="change${index}" value="${element}" onclick="demo(${index})"></input></div><div><button onclick="update(${index})">update</button></div><div><button class="btn" onclick="del(${index})">delete</button></div></div>`;
     });
     todolist.innerHTML=newtag;
     document.querySelector(".pending").innerHTML=`You have ${listarr.length} pending items`;
@@ -61,4 +64,26 @@ function del(index){
     localStorage.setItem("New Todo",JSON.stringify(listarr));
     showtask();
     text.focus();
+}
+
+function demo(index){
+    document.getElementById(`change${index}`).classList.add("active");
+    userdata=document.getElementById(`change${index}`);
+}
+function update(index){
+    userdata=document.getElementById(`change${index}`);
+    userdata.classList.remove("active")
+    let getLocalStorage=localStorage.getItem("New Todo");
+    listarr=JSON.parse(getLocalStorage);
+    if(userdata.value.trim()==0){
+        alert("Please Enter pending task!!!")
+        showtask()
+     return;
+    }
+    else{
+    listarr[index]=userdata.value
+    localStorage.setItem("New Todo",JSON.stringify(listarr));
+    text.focus()
+    showtask()
+    }
 }
